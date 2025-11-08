@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import api from "./api";
+import weatherCard from "./components/weatherCard";
+import ChartView from "./components/chartView";
 
 function App() {
+
+  const [data, setData] = useState([])
+
+  const fetchHistory = async () =>{
+    const res = await api.get("/weather/history")
+    setData(res.data)
+  }
+  const fetchNewData = async () =>{
+      await api.get("/weather/fetch")
+      fetchHistory()
+  }
+
+  useEffect(()=>{
+    fetchHistory()
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>🌦 Weather Monitoring Dashboard</h1>
+      <button
+        onClick={fetchNewData}
+      >
+        Refresh Data
+      </button>
+      {data.length > 0 && <weatherCard data={data[0]} />}
+      <div>
+        <ChartView data={data} />
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
