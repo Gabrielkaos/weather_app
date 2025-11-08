@@ -1,8 +1,8 @@
 import React from "react";
 
 
-const weatherCard = ({data}) =>{
-    if (!data) return null
+function WeatherCard({data}){
+   if(!data) return null
     const {temperature, humidity, pressure,wind,description, city, timestamp} = data
 
 
@@ -18,4 +18,4 @@ const weatherCard = ({data}) =>{
     )
 }
 
-export default weatherCard
+export default WeatherCard

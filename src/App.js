@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "./api";
-import weatherCard from "./components/weatherCard";
+import WeatherCard from "./components/weatherCard";
 import ChartView from "./components/chartView";
 
 function App() {
@@ -28,7 +28,10 @@ function App() {
       >
         Refresh Data
       </button>
-      {data.length > 0 && <weatherCard data={data[0]} />}
+      <div>
+        <WeatherCard data={data[0]} />
+      </div>
+      
       <div>
         <ChartView data={data} />
       </div>
